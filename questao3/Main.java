@@ -20,7 +20,8 @@ public class Main extends Application {
         // Button left, up, down, right;
         // Rectangle blocos[][];
         Tabuleiro tabuleiro = new Tabuleiro(root, largura, altura);
-        Robo robo1, robo2;
+        Robo robo1;
+        RoboInteligente robo2;
 
         @SuppressWarnings("unused")
         Comida comida;
@@ -50,7 +51,7 @@ public class Main extends Application {
         }
 
         robo1 = new Robo(cores[0], root, largura, altura, x_blocos, y_blocos);
-        robo2 = new Robo(cores[1], root, largura, altura, x_blocos, y_blocos);
+        robo2 = new RoboInteligente(cores[1], root, largura, altura, x_blocos, y_blocos);
         comida = new Comida(root, largura, altura, x_blocos[x_comida], y_blocos[y_comida]);
         // FIM DO BLOCO
 
@@ -72,7 +73,7 @@ public class Main extends Application {
         // CRIAR LÓGICA DO GAME OVER
     }
 
-    private void eventoMover(Robo robo1, Robo robo2) throws FileNotFoundException {
+    private void eventoMover(Robo robo1, RoboInteligente robo2) throws FileNotFoundException {
 
         // Gera dois números aleatórios entre 0 e 3 para determinar o tipo de movimento
         // dos robôs
@@ -104,6 +105,8 @@ public class Main extends Application {
             }
 
             try {
+                tipo_mov2 = robo2.verificarRegistroMov(tipo_mov2);
+
                 // Verifica se o movimento do robo2 é inválido e lança
                 // MovimentoInvalidoException se for o caso
                 if (tipo_mov2 == 0 && robo2.getPosX() - 1 < 0)
@@ -121,6 +124,7 @@ public class Main extends Application {
             } catch (MovimentoInvalidoException e) {
                 // Se o movimento for inválido, registra o movimento inválido
                 e.invalidarMovimento(robo2);
+                robo2.registrarMovimento(tipo_mov2);
             }
         }));
 
