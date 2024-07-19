@@ -7,26 +7,31 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class Robo {
-    private int x_atual, y_atual, x_blocos[], y_blocos[];
-    private int num_mov_validos, num_mov_invalidos;
-    private String cor;
-    private ImageView img_robo;
-    private TranslateTransition movimento;
+    protected int x_atual, y_atual, x_anterior, y_anterior, x_blocos[], y_blocos[];
+    protected int num_mov_validos, num_mov_invalidos;
+    protected boolean vivo, mov_liberado;
+    protected String cor;
+    protected ImageView img_robo;
+    protected TranslateTransition movimento;
 
     public Robo(String cor, Pane root, int largura, int altura, int[] x_blocos, int[] y_blocos)
             throws FileNotFoundException {
         this.cor = cor;
         this.x_atual = 0;
         this.y_atual = 0;
+        this.x_anterior = 0;
+        this.y_anterior = 0;
         this.num_mov_validos = 0;
         this.num_mov_invalidos = 0;
+        this.vivo = true;
+        this.mov_liberado = true;
         this.x_blocos = x_blocos;
         this.y_blocos = y_blocos;
         this.img_robo = this.definirImg(root, largura, altura);
         this.movimento = new TranslateTransition(Duration.seconds(0.5), this.img_robo);
     }
 
-    private ImageView definirImg(Pane root, int largura, int altura) throws FileNotFoundException {
+    protected ImageView definirImg(Pane root, int largura, int altura) throws FileNotFoundException {
         String caminho;
         ImageView img;
 
@@ -50,6 +55,9 @@ public class Robo {
     public void mover(int tipo_mov) {
         int soma_x = 0, soma_y = 0, dx, dy;
 
+        this.x_anterior = this.x_atual;
+        this.y_anterior = this.y_atual;
+
         if (tipo_mov == 0)
             soma_x = -1;
         else if (tipo_mov == 1)
@@ -71,6 +79,7 @@ public class Robo {
         // Atualizando o posicionamento atual
         this.x_atual += soma_x;
         this.y_atual += soma_y;
+
     }
 
     public int getPosX() {
@@ -97,6 +106,38 @@ public class Robo {
     public void mostrarMovs() {
         System.out.printf("\nMovimentos válidos: %d\nMovimentos inválidos: %d\n", this.num_mov_validos,
                 this.num_mov_invalidos);
+    }
+
+    public void retroceder() {
+        int dx = this.x_blocos[this.x_anterior] - this.x_blocos[this.x_atual];
+        int dy = this.y_blocos[this.y_anterior] - this.y_blocos[this.y_atual];
+
+        // Iniciando o movimento
+        movimento.setByX(dx);
+        movimento.setByY(dy);
+        movimento.play();
+
+        this.x_atual = this.x_anterior;
+        this.y_atual = this.y_anterior;
+    }
+
+    public void setMovLiberado(boolean mov_liberado) {
+        this.mov_liberado = mov_liberado;
+    }
+
+    public boolean getMovLiberado() {
+        return this.mov_liberado;
+    }
+
+    public boolean getVivo() {
+        return this.vivo;
+    }
+
+    public void morrer() {
+        this.vivo = false;
+        this.x_atual = -1;
+        this.y_atual = -1;
+        this.img_robo.setVisible(false);
     }
 
 }

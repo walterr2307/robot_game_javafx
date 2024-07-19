@@ -1,6 +1,5 @@
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import javafx.animation.TranslateTransition;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -18,22 +17,10 @@ public class Robo {
         this.cor = cor;
         this.x_atual = 0;
         this.y_atual = 0;
-        this.ajustarBlocos(largura, altura, x_blocos, y_blocos);
+        this.x_blocos = x_blocos;
+        this.y_blocos = y_blocos;
         this.img_robo = this.definirImg(root, largura, altura);
         this.movimento = new TranslateTransition(Duration.seconds(0.5), this.img_robo);
-    }
-
-    private void ajustarBlocos(int largura, int altura, int[] x_blocos, int[] y_blocos) {
-        int i, ajuste_x = (int) (largura * 0.02), ajuste_y = (int) (altura * 0.04);
-        int x_copia[] = Arrays.copyOf(x_blocos, 4), y_copia[] = Arrays.copyOf(y_blocos, 4);
-
-        for (i = 0; i < 4; i++) {
-            x_copia[i] += ajuste_x;
-            y_copia[i] += ajuste_y;
-        }
-
-        this.x_blocos = x_copia;
-        this.y_blocos = y_copia;
     }
 
     private ImageView definirImg(Pane root, int largura, int altura) throws FileNotFoundException {
