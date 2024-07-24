@@ -59,9 +59,9 @@ public class Main extends Application {
             tipo_obs = (int) (Math.random() * 2);
 
             if (tipo_obs == 0)
-                ob = new Rocha(x_blocos[x[i]], y_blocos[y[i]], root, largura);
+                ob = new Rocha(x_blocos[x[i]], y_blocos[y[i]], x[i], y[i], root, largura);
             else
-                ob = new Bomba(x_blocos[x[i]], y_blocos[y[i]], root, largura);
+                ob = new Bomba(x_blocos[x[i]], y_blocos[y[i]], x[i], y[i], root, largura);
 
             obs.add(ob);
         }
@@ -80,16 +80,14 @@ public class Main extends Application {
         stage.show();
 
         // Iniciar o evento que dura enquanto a janela estiver aberta
-        eventoMover(robo1, robo2, obs);
-
-        // Adicionar um event handler para parar o evento quando a janela for fechada
-        stage.setOnCloseRequest(event -> paraEvento());
+        eventoMover(stage, robo1, robo2, obs);
 
         // AVISO!!!!!
         // CRIAR LÓGICA DO GAME OVER
     }
 
-    private void eventoMover(Robo robo1, RoboInteligente robo2, ArrayList<Obstaculo> obs) throws FileNotFoundException {
+    private void eventoMover(Stage stage, Robo robo1, RoboInteligente robo2, ArrayList<Obstaculo> obs)
+            throws FileNotFoundException {
 
         // Gera dois números aleatórios entre 0 e 3 para determinar o tipo de movimento
         // dos robôs
@@ -100,6 +98,10 @@ public class Main extends Application {
 
             try {
                 // Verificando se o robô passou por um obstáculo
+
+                if (robo1.getMovLiberado() == false)
+                    robo1.setMovLiberado(true);
+
                 for (Obstaculo ob : obs)
                     ob.bater(robo1);
 
@@ -131,6 +133,9 @@ public class Main extends Application {
                 tipo_mov2 = robo2.verificarRegistroMov(tipo_mov2);
 
                 // Verificando se o robô passou por um obstáculo
+                if (robo2.getMovLiberado() == false)
+                    robo2.setMovLiberado(true);
+
                 for (Obstaculo ob : obs)
                     ob.bater(robo2);
 
@@ -155,6 +160,8 @@ public class Main extends Application {
                 // Se o movimento for inválido, registra o movimento inválido
                 e.invalidarMovimento(robo2);
                 robo2.registrarMovimento(tipo_mov2);
+            } finally {
+                finalizarJogo(stage, robo1, robo2);
             }
         }));
 
@@ -165,9 +172,10 @@ public class Main extends Application {
         this.timeline.play();
     }
 
-    private void paraEvento() {
-        if (this.timeline != null) {
-            this.timeline.stop();
+    private void finalizarJogo(Stage stage, Robo robo1, Robo robo2) {
+        if (robo1.getVivo() == false && robo2.getVivo() == false) {
+            System.out.println("Os robôs morreram!");
+            stage.close();
         }
     }
 

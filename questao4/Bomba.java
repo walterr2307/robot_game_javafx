@@ -6,8 +6,9 @@ import javafx.scene.layout.Pane;
 
 public class Bomba extends Obstaculo {
 
-    public Bomba(int x, int y, Pane root, int largura) throws FileNotFoundException {
-        super(x, y, root, largura);
+    public Bomba(int x_bloco, int y_bloco, int x_atual, int y_atual, Pane root, int largura)
+            throws FileNotFoundException {
+        super(x_bloco, y_bloco, x_atual, y_atual, root, largura);
         this.id = "bomba";
     }
 
@@ -16,16 +17,15 @@ public class Bomba extends Obstaculo {
 
         img.setFitWidth(largura / 10);
         img.setFitHeight(largura / 10);
-        img.setLayoutX(this.x);
-        img.setLayoutY(this.y);
+        img.setLayoutX(this.x_bloco);
+        img.setLayoutY(this.y_bloco);
         root.getChildren().add(img);
 
         return img;
     }
 
     public void bater(Robo robo) {
-        if (this.x == robo.getPosX() && this.y == robo.getPosY()) {
-            System.out.println("Robô morreu!");
+        if (this.x_atual == robo.getPosX() && this.y_atual == robo.getPosY()) {
             robo.morrer();
             robo.setMovLiberado(false);
         }

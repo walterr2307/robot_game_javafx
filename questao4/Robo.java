@@ -55,31 +55,32 @@ public class Robo {
     public void mover(int tipo_mov) {
         int soma_x = 0, soma_y = 0, dx, dy;
 
-        this.x_anterior = this.x_atual;
-        this.y_anterior = this.y_atual;
+        if (this.vivo == true) {
+            this.x_anterior = this.x_atual;
+            this.y_anterior = this.y_atual;
 
-        if (tipo_mov == 0)
-            soma_x = -1;
-        else if (tipo_mov == 1)
-            soma_y = -1;
-        else if (tipo_mov == 2)
-            soma_y = 1;
-        else
-            soma_x = 1;
+            if (tipo_mov == 0)
+                soma_x = -1;
+            else if (tipo_mov == 1)
+                soma_y = -1;
+            else if (tipo_mov == 2)
+                soma_y = 1;
+            else
+                soma_x = 1;
 
-        // Calculando as distâncias
-        dx = this.x_blocos[soma_x + this.x_atual] - this.x_blocos[this.x_atual];
-        dy = this.y_blocos[soma_y + this.y_atual] - this.y_blocos[this.y_atual];
+            // Calculando as distâncias
+            dx = this.x_blocos[soma_x + this.x_atual] - this.x_blocos[this.x_atual];
+            dy = this.y_blocos[soma_y + this.y_atual] - this.y_blocos[this.y_atual];
 
-        // Iniciando o movimento
-        movimento.setByX(dx);
-        movimento.setByY(dy);
-        movimento.play();
+            // Iniciando o movimento
+            movimento.setByX(dx);
+            movimento.setByY(dy);
+            movimento.play();
 
-        // Atualizando o posicionamento atual
-        this.x_atual += soma_x;
-        this.y_atual += soma_y;
-
+            // Atualizando o posicionamento atual
+            this.x_atual += soma_x;
+            this.y_atual += soma_y;
+        }
     }
 
     public int getPosX() {
@@ -135,8 +136,8 @@ public class Robo {
 
     public void morrer() {
         this.vivo = false;
-        this.x_atual = -1;
-        this.y_atual = -1;
+        this.x_atual = 0;
+        this.y_atual = 0;
         this.img_robo.setVisible(false);
     }
 

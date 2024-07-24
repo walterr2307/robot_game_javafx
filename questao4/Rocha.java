@@ -6,8 +6,8 @@ import javafx.scene.layout.Pane;
 
 public class Rocha extends Obstaculo {
 
-    public Rocha(int x, int y, Pane root, int largura) throws FileNotFoundException {
-        super(x, y, root, largura);
+    public Rocha(int x_bloco, int y_bloco, int x_atual, int y_atual, Pane root, int largura) throws FileNotFoundException {
+        super(x_bloco, y_bloco, x_atual, y_atual, root, largura);
         this.id = "rocha";
     }
 
@@ -16,16 +16,15 @@ public class Rocha extends Obstaculo {
 
         img.setFitWidth(largura / 10);
         img.setFitHeight(largura / 10);
-        img.setLayoutX(this.x);
-        img.setLayoutY(this.y);
+        img.setLayoutX(this.x_bloco);
+        img.setLayoutY(this.y_bloco);
         root.getChildren().add(img);
 
         return img;
     }
 
     public void bater(Robo robo) {
-        if (this.x == robo.getPosX() && this.y == robo.getPosY()) {
-            System.out.println("Rocha colidiu com o robô!");
+        if (this.x_atual == robo.getPosX() && this.y_atual == robo.getPosY()) {
             robo.retroceder();
             robo.setMovLiberado(false);
         }

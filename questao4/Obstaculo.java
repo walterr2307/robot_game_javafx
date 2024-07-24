@@ -1,16 +1,18 @@
 import java.io.FileNotFoundException;
-
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public abstract class Obstaculo {
-    protected int x, y;
+    protected int x_bloco, y_bloco, x_atual, y_atual;
     protected String id;
     protected ImageView img;
 
-    public Obstaculo(int x, int y, Pane root, int largura) throws FileNotFoundException {
-        this.x = x;
-        this.y = y;
+    public Obstaculo(int x_bloco, int y_bloco, int x_atual, int y_atual, Pane root, int largura)
+            throws FileNotFoundException {
+        this.x_bloco = x_bloco;
+        this.y_bloco = y_bloco;
+        this.x_atual = x_atual;
+        this.y_atual = y_atual;
         this.img = this.definirImg(root, largura);
     }
 
@@ -28,10 +30,10 @@ public abstract class Obstaculo {
     }
 
     public int getPosX() {
-        return this.x;
+        return this.x_atual;
     }
 
     public int getPosY() {
-        return this.y;
+        return this.y_atual;
     }
 }

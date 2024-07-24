@@ -15,7 +15,7 @@ public class Comida {
     }
 
     private ImageView definirImg(Pane root, int largura, int altura) throws FileNotFoundException {
-        ImageView img = new ImageView(new Image(new FileInputStream("imagens\\letra_x.png")));
+        ImageView img = new ImageView(new Image(new FileInputStream("imagens\\frango.png")));
 
         img.setFitWidth(largura / 10);
         img.setFitHeight(altura * 0.15);
