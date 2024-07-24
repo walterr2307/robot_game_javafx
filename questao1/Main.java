@@ -46,15 +46,15 @@ public class Main extends Application {
 
         // Adiciona ação de seleção aos itens de cor
         cinza.setOnAction(e -> {
-            indice_cor = 1;
+            indice_cor = 0;
             menu_cor.setText("Cor selecionada: Cinza");
         });
         vermelho.setOnAction(e -> {
-            indice_cor = 2;
+            indice_cor = 1;
             menu_cor.setText("Cor selecionada: Vermelho");
         });
         azul.setOnAction(e -> {
-            indice_cor = 3;
+            indice_cor = 2;
             menu_cor.setText("Cor selecionada: Azul");
         });
 
