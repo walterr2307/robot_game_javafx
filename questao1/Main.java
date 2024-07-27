@@ -160,33 +160,33 @@ public class Main extends Application {
 
         // Inicializando o jogo
         robo = new Robo(cores[indice_cor], root, largura, altura, x_blocos, y_blocos);
-        comida = new Comida(root, largura, altura, x_blocos[x_comida], y_blocos[y_comida]);
+        comida = new Comida(root, largura, altura, x_blocos[x_comida], y_blocos[y_comida], x_comida, y_comida);
 
         // Ajustando os botões
         left.setOnAction(event -> {
             try {
-                moverLeft(root, robo, comida, blocos, largura);
+                moverLeft(root, robo, comida, blocos, largura, primary_stage);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         });
         up.setOnAction(event -> {
             try {
-                moverUp(root, robo, comida, blocos, largura);
+                moverUp(root, robo, comida, blocos, largura, primary_stage);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         });
         down.setOnAction(event -> {
             try {
-                moverDown(root, robo, comida, blocos, largura);
+                moverDown(root, robo, comida, blocos, largura, primary_stage);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         });
         right.setOnAction(event -> {
             try {
-                moverRight(root, robo, comida, blocos, largura);
+                moverRight(root, robo, comida, blocos, largura, primary_stage);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -198,8 +198,6 @@ public class Main extends Application {
         primary_stage.setTitle("Jogo do Robô");
         primary_stage.show();
 
-        // AVISO!!!!!
-        // CRIAR LÓGICA DO GAME OVER
     }
 
     @Override
@@ -207,7 +205,7 @@ public class Main extends Application {
         configurarMenu();
     }
 
-    private void moverLeft(Pane root, Robo robo, Comida comida, Rectangle[][] blocos, int largura)
+    private void moverLeft(Pane root, Robo robo, Comida comida, Rectangle[][] blocos, int largura, Stage stage)
             throws FileNotFoundException {
         try {
             root.setDisable(true); // Desabilita o root
@@ -219,10 +217,11 @@ public class Main extends Application {
             e.mostrarMensagem(root, robo.getImg(), comida.getImg(), blocos, largura);
         } finally {
             root.setDisable(false); // Reabilita o root
+            this.verificarGameOver(stage, robo, comida);
         }
     }
 
-    private void moverUp(Pane root, Robo robo, Comida comida, Rectangle[][] blocos, int largura)
+    private void moverUp(Pane root, Robo robo, Comida comida, Rectangle[][] blocos, int largura, Stage stage)
             throws FileNotFoundException {
         try {
             root.setDisable(true); // Desabilita o root
@@ -234,10 +233,11 @@ public class Main extends Application {
             e.mostrarMensagem(root, robo.getImg(), comida.getImg(), blocos, largura);
         } finally {
             root.setDisable(false); // Reabilita o root
+            this.verificarGameOver(stage, robo, comida);
         }
     }
 
-    private void moverDown(Pane root, Robo robo, Comida comida, Rectangle[][] blocos, int largura)
+    private void moverDown(Pane root, Robo robo, Comida comida, Rectangle[][] blocos, int largura, Stage stage)
             throws FileNotFoundException {
         try {
             root.setDisable(true); // Desabilita o root
@@ -249,10 +249,11 @@ public class Main extends Application {
             e.mostrarMensagem(root, robo.getImg(), comida.getImg(), blocos, largura);
         } finally {
             root.setDisable(false); // Reabilita o root
+            this.verificarGameOver(stage, robo, comida);
         }
     }
 
-    private void moverRight(Pane root, Robo robo, Comida comida, Rectangle[][] blocos, int largura)
+    private void moverRight(Pane root, Robo robo, Comida comida, Rectangle[][] blocos, int largura, Stage stage)
             throws FileNotFoundException {
         try {
             root.setDisable(true); // Desabilita o root
@@ -264,6 +265,16 @@ public class Main extends Application {
             e.mostrarMensagem(root, robo.getImg(), comida.getImg(), blocos, largura);
         } finally {
             root.setDisable(false); // Reabilita o root
+            this.verificarGameOver(stage, robo, comida);
+        }
+    }
+
+    private void verificarGameOver(Stage stage, Robo robo, Comida comida) {
+        GameOverScreen game_over = new GameOverScreen();
+
+        if (robo.getPosX() == comida.getPosX() && robo.getPosY() == comida.getPosY()) {
+            stage.close();
+            game_over.mostrarTela();
         }
     }
 
