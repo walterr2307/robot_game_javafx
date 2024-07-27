@@ -9,7 +9,7 @@ import javafx.util.Duration;
 public class Robo {
     protected int x_atual, y_atual, x_anterior, y_anterior, x_blocos[], y_blocos[];
     protected int num_mov_validos, num_mov_invalidos;
-    protected boolean vivo, mov_liberado;
+    protected boolean vivo, mov_liberado, ultimo_mov;
     protected String cor;
     protected ImageView img_robo;
     protected TranslateTransition movimento;
@@ -25,6 +25,7 @@ public class Robo {
         this.num_mov_invalidos = 0;
         this.vivo = true;
         this.mov_liberado = true;
+        this.ultimo_mov = false;
         this.x_blocos = x_blocos;
         this.y_blocos = y_blocos;
         this.img_robo = this.definirImg(root, largura, altura);
@@ -55,7 +56,7 @@ public class Robo {
     public void mover(int tipo_mov) {
         int soma_x = 0, soma_y = 0, dx, dy;
 
-        if (this.vivo == true) {
+        if (this.vivo == true && this.ultimo_mov == false) {
             this.x_anterior = this.x_atual;
             this.y_anterior = this.y_atual;
 
@@ -103,10 +104,12 @@ public class Robo {
         ++this.num_mov_invalidos;
     }
 
-    // ESSE METODO É PROVISÓRIO!!!!!
-    public void mostrarMovs() {
-        System.out.printf("\nMovimentos válidos: %d\nMovimentos inválidos: %d\n", this.num_mov_validos,
-                this.num_mov_invalidos);
+    public int getMovValidos() {
+        return this.num_mov_validos;
+    }
+
+    public int getMovInvalidos() {
+        return this.num_mov_invalidos;
     }
 
     public void retroceder() {
@@ -139,6 +142,15 @@ public class Robo {
         this.x_atual = 0;
         this.y_atual = 0;
         this.img_robo.setVisible(false);
+    }
+
+    public void voltarInicio() {
+        this.x_atual = 0;
+        this.y_atual = 0;
+    }
+
+    public void bloquearMovimento() {
+        this.ultimo_mov = true;
     }
 
 }

@@ -14,7 +14,6 @@ public class Comida {
         this.pos_x = pos_x;
         this.pos_y = pos_y;
         this.img_comida = this.definirImg(root, largura, altura);
-        System.out.printf("\nComida: (%d, %d)\n", pos_x, pos_y);
     }
 
     private ImageView definirImg(Pane root, int largura, int altura) throws FileNotFoundException {
