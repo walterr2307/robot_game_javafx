@@ -286,14 +286,16 @@ public class Main extends Application {
 
                 // Verifica se o movimento do robo1 é inválido e lança
                 // MovimentoInvalidoException se for o caso
-                if (tipo_mov1 == 0 && robo1.getPosX() - 1 < 0)
-                    throw new MovimentoInvalidoException();
-                if (tipo_mov1 == 1 && robo1.getPosY() - 1 < 0)
-                    throw new MovimentoInvalidoException();
-                if (tipo_mov1 == 2 && robo1.getPosY() + 1 >= 4)
-                    throw new MovimentoInvalidoException();
-                if (tipo_mov1 == 3 && robo1.getPosX() + 1 >= 4)
-                    throw new MovimentoInvalidoException();
+                if (robo1.getVivo() == true) {
+                    if (tipo_mov1 == 0 && robo1.getPosX() - 1 < 0)
+                        throw new MovimentoInvalidoException();
+                    if (tipo_mov1 == 1 && robo1.getPosY() - 1 < 0)
+                        throw new MovimentoInvalidoException();
+                    if (tipo_mov1 == 2 && robo1.getPosY() + 1 >= 4)
+                        throw new MovimentoInvalidoException();
+                    if (tipo_mov1 == 3 && robo1.getPosX() + 1 >= 4)
+                        throw new MovimentoInvalidoException();
+                }
 
                 // Se o movimento for válido, registra o movimento válido e move o robo1
                 if (robo1.getVivo() == true)
@@ -323,14 +325,16 @@ public class Main extends Application {
 
                 // Verifica se o movimento do robo2 é inválido e lança
                 // MovimentoInvalidoException se for o caso
-                if (tipo_mov2 == 0 && robo2.getPosX() - 1 < 0)
-                    throw new MovimentoInvalidoException();
-                if (tipo_mov2 == 1 && robo2.getPosY() - 1 < 0)
-                    throw new MovimentoInvalidoException();
-                if (tipo_mov2 == 2 && robo2.getPosY() + 1 >= 4)
-                    throw new MovimentoInvalidoException();
-                if (tipo_mov2 == 3 && robo2.getPosX() + 1 >= 4)
-                    throw new MovimentoInvalidoException();
+                if (robo2.getVivo() == true) {
+                    if (tipo_mov2 == 0 && robo2.getPosX() - 1 < 0)
+                        throw new MovimentoInvalidoException();
+                    if (tipo_mov2 == 1 && robo2.getPosY() - 1 < 0)
+                        throw new MovimentoInvalidoException();
+                    if (tipo_mov2 == 2 && robo2.getPosY() + 1 >= 4)
+                        throw new MovimentoInvalidoException();
+                    if (tipo_mov2 == 3 && robo2.getPosX() + 1 >= 4)
+                        throw new MovimentoInvalidoException();
+                }
 
                 // Se o movimento for válido, registra o movimento válido e move o robo2
                 if (robo2.getVivo() == true)
