@@ -3,6 +3,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public abstract class Obstaculo {
+    // Bloco --> pos, Atual --> indice
     protected int x_bloco, y_bloco, x_atual, y_atual;
     protected String id;
     protected ImageView img;

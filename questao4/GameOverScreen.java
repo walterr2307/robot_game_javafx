@@ -35,7 +35,7 @@ public class GameOverScreen extends StackPane {
 
         // Informações dos robôs
         Text infoText = new Text(
-                String.format("Robô 1: (%dv, %di)\nRobô 2: (%dv, %di)",
+                String.format("Robô Comum: (%dv, %di)\nRobô Inteligente: (%dv, %di)",
                         robo1.getMovValidos(), robo1.getMovInvalidos(),
                         robo2.getMovValidos(), robo2.getMovInvalidos()));
         infoText.setFont(Font.font("Arial", FontWeight.NORMAL, 16));

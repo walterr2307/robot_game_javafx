@@ -36,7 +36,7 @@ public class Main extends Application {
         this.pos_obstaculos = new ArrayList<String>();
     }
 
-    public void start(Stage primary_stage) {
+    public void start(Stage primary_stage) { // Menu
         // Define o título da janela principal
         primary_stage.setTitle("Configuração do Jogo");
 
@@ -100,8 +100,10 @@ public class Main extends Application {
             String posX = campoObstaculoX.getText();
             String posY = campoObstaculoY.getText();
             String posicao = posX + "," + posY;
+            int pos_x = Integer.parseInt(posX);
+            int pos_y = Integer.parseInt(posY);
 
-            if (tipo != null && !posX.isEmpty() && !posY.isEmpty()) {
+            if (tipo != null && pos_x > 0 && pos_x < 4 && pos_y > 0 && pos_y < 4) {
                 if (posicao.equals(pos_comida)) {
                     // Alerta se o obstáculo estiver na mesma posição que a comida
                     Alert alerta = new Alert(Alert.AlertType.WARNING,
@@ -119,8 +121,8 @@ public class Main extends Application {
                     campoObstaculoY.clear();
                     obstaculosBox.setValue(null);
                     tipos_obs.add(tipo);
-                    x_obs.add(Integer.parseInt(posX));
-                    y_obs.add(Integer.parseInt(posY));
+                    x_obs.add(pos_x);
+                    y_obs.add(pos_y);
                 }
             } else {
                 // Alerta se os campos do obstáculo não estiverem preenchidos
@@ -140,9 +142,11 @@ public class Main extends Application {
             String posX = campoPosX.getText();
             String posY = campoPosY.getText();
             String posicao = posX + "," + posY;
+            int pos_x = Integer.parseInt(posX);
+            int pos_y = Integer.parseInt(posY);
 
             if (jogador1 != null && jogador2 != null && !jogador1.equals(jogador2)) {
-                if (!posX.isEmpty() && !posY.isEmpty()) {
+                if (pos_x > 0 && pos_x < 4 && pos_y > 0 && pos_y < 4) {
                     if (pos_obstaculos.contains(posicao)) {
                         // Alerta se a comida estiver na mesma posição que um obstáculo
                         Alert alerta = new Alert(Alert.AlertType.WARNING,
@@ -292,7 +296,8 @@ public class Main extends Application {
                     throw new MovimentoInvalidoException();
 
                 // Se o movimento for válido, registra o movimento válido e move o robo1
-                robo1.addMovValido();
+                if (robo1.getVivo() == true)
+                    robo1.addMovValido();
 
                 if (robo1.getMovLiberado() == true && robo1.getVivo() == true)
                     robo1.mover(tipo_mov1);
@@ -328,7 +333,8 @@ public class Main extends Application {
                     throw new MovimentoInvalidoException();
 
                 // Se o movimento for válido, registra o movimento válido e move o robo2
-                robo2.addMovValido();
+                if (robo2.getVivo() == true)
+                    robo2.addMovValido();
 
                 if (robo2.getMovLiberado() == true && robo2.getVivo() == true)
                     robo2.mover(tipo_mov2);

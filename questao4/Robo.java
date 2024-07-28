@@ -9,7 +9,7 @@ import javafx.util.Duration;
 public class Robo {
     protected int x_atual, y_atual, x_anterior, y_anterior, x_blocos[], y_blocos[];
     protected int num_mov_validos, num_mov_invalidos;
-    protected boolean vivo, mov_liberado, ultimo_mov;
+    protected boolean vivo, mov_liberado, ultimo_mov; // Achou a comida
     protected String cor;
     protected ImageView img_robo;
     protected TranslateTransition movimento;
@@ -70,6 +70,7 @@ public class Robo {
                 soma_x = 1;
 
             // Calculando as distâncias
+            // S - S0, deltaS
             dx = this.x_blocos[soma_x + this.x_atual] - this.x_blocos[this.x_atual];
             dy = this.y_blocos[soma_y + this.y_atual] - this.y_blocos[this.y_atual];
 
