@@ -278,8 +278,8 @@ public class Main extends Application {
         // Gera dois números aleatórios entre 0 e 3 para determinar o tipo de movimento
         // dos robôs
 
-        // Cria uma nova Timeline que executa uma ação a cada 1 segundo
-        this.timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+        // Cria uma nova Timeline que executa uma ação a cada 0.75 segundos
+        this.timeline = new Timeline(new KeyFrame(Duration.seconds(0.75), event -> {
             int tipo_mov1 = (int) (Math.random() * 4), tipo_mov2 = (int) (Math.random() * 4);
 
             try {
