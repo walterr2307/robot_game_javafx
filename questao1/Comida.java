@@ -5,6 +5,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public class Comida {
+    // Pixel/ Plano cartesiano
     private int x_comida, y_comida, pos_x, pos_y;
     private ImageView img_comida;
 

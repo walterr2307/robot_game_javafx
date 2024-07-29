@@ -103,8 +103,12 @@ public class Main extends Application {
             int pos_x = Integer.parseInt(posX);
             int pos_y = Integer.parseInt(posY);
 
-            if (tipo != null && pos_x > 0 && pos_x < 4 && pos_y > 0 && pos_y < 4) {
-                if (posicao.equals(pos_comida)) {
+            if (tipo != null && pos_x > -1 && pos_x < 4 && pos_y > -1 && pos_y < 4) {
+                if (pos_x == 0 && pos_y == 0) {
+                    Alert alerta = new Alert(Alert.AlertType.WARNING,
+                            "O obstáculo não pode estar na mesma posição que os robôs. Por favor, escolha outra posição.");
+                    alerta.showAndWait();
+                } else if (posicao.equals(pos_comida)) {
                     // Alerta se o obstáculo estiver na mesma posição que a comida
                     Alert alerta = new Alert(Alert.AlertType.WARNING,
                             "O obstáculo não pode estar na mesma posição que a comida. Por favor, escolha outra posição.");
@@ -146,8 +150,12 @@ public class Main extends Application {
             int pos_y = Integer.parseInt(posY);
 
             if (jogador1 != null && jogador2 != null && !jogador1.equals(jogador2)) {
-                if (pos_x > 0 && pos_x < 4 && pos_y > 0 && pos_y < 4) {
-                    if (pos_obstaculos.contains(posicao)) {
+                if (pos_x > -1 && pos_x < 4 && pos_y > -1 && pos_y < 4) {
+                    if (pos_x == 0 && pos_y == 0) {
+                        Alert alerta = new Alert(Alert.AlertType.WARNING,
+                                "A comida não pode estar na mesma posição que os robôs. Por favor, escolha outra posição.");
+                        alerta.showAndWait();
+                    } else if (pos_obstaculos.contains(posicao)) {
                         // Alerta se a comida estiver na mesma posição que um obstáculo
                         Alert alerta = new Alert(Alert.AlertType.WARNING,
                                 "A comida não pode estar na mesma posição que um obstáculo. Por favor, escolha outra posição.");
@@ -158,7 +166,6 @@ public class Main extends Application {
                         x_comida = Integer.parseInt(posX);
                         y_comida = Integer.parseInt(posY);
 
-                        // Lugar para adicionar a lógica do iniciar do jogo
                         primary_stage.close();
                         try {
                             if (jogador1.equals("Cinza"))

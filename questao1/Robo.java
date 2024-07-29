@@ -7,6 +7,7 @@ import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class Robo {
+    // Plano Cartesiano / Pixels
     private int x_atual, y_atual, x_blocos[], y_blocos[];
     private String cor;
     private ImageView img_robo;
