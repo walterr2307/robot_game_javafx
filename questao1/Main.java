@@ -9,16 +9,22 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+// Classe principal que herda de Application
 public class Main extends Application {
     private int largura, altura, indice_cor, x_comida, y_comida;
     private Button botao_fechar;
 
+    // Construtor da classe Main
     public Main() {
+        // Define a largura da janela
         this.largura = 720;
+        // Calcula a altura com base na largura
         this.altura = (int) (this.largura / 1.5);
+        // Cria um botão para fechar
         this.botao_fechar = new Button("OK");
     }
 
+    // Método para configurar o menu
     private void configurarMenu() {
         Pane root = new Pane();
         Scene scene = new Scene(root, largura, altura);
@@ -131,6 +137,7 @@ public class Main extends Application {
         });
     }
 
+    // Método auxiliar para criar itens de menu personalizados
     private CustomMenuItem createCustomMenuItem(String text, double width) {
         Label label = new Label(text);
         label.setPrefWidth(width - 20); // Ajustar a largura menos um valor para espaçamento
@@ -138,6 +145,7 @@ public class Main extends Application {
         return new CustomMenuItem(label, false);
     }
 
+    // Método para configurar a tela do jogo
     private void colocarTelaJogo(Stage primary_stage) throws FileNotFoundException {
         int x_blocos[], y_blocos[];
         String cores[] = { "cinza", "vermelho", "azul" };
@@ -165,28 +173,28 @@ public class Main extends Application {
         // Ajustando os botões
         left.setOnAction(event -> {
             try {
-                moverLeft(root, robo, comida, blocos, largura, primary_stage);
+                moverLeft(root, robo, comida, blocos, largura, primary_stage, tabuleiro);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         });
         up.setOnAction(event -> {
             try {
-                moverUp(root, robo, comida, blocos, largura, primary_stage);
+                moverUp(root, robo, comida, blocos, largura, primary_stage, tabuleiro);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         });
         down.setOnAction(event -> {
             try {
-                moverDown(root, robo, comida, blocos, largura, primary_stage);
+                moverDown(root, robo, comida, blocos, largura, primary_stage, tabuleiro);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
         });
         right.setOnAction(event -> {
             try {
-                moverRight(root, robo, comida, blocos, largura, primary_stage);
+                moverRight(root, robo, comida, blocos, largura, primary_stage, tabuleiro);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -197,18 +205,20 @@ public class Main extends Application {
         primary_stage.setScene(scene);
         primary_stage.setTitle("Jogo do Robô");
         primary_stage.show();
-
     }
 
+    // Método chamado ao iniciar a aplicação
     @Override
     public void start(Stage primary_stage) {
         configurarMenu();
     }
 
-    private void moverLeft(Pane root, Robo robo, Comida comida, Rectangle[][] blocos, int largura, Stage stage)
-            throws FileNotFoundException {
+    // Métodos para movimentar o robô
+    private void moverLeft(Pane root, Robo robo, Comida comida, Rectangle[][] blocos, int largura, Stage stage,
+            Tabuleiro tabuleiro) throws FileNotFoundException {
         try {
-            root.setDisable(true); // Desabilita o root
+            tabuleiro.interagirBotoes();
+
             if (robo.getPosX() - 1 < 0)
                 throw new MovimentoInvalidoException();
 
@@ -216,15 +226,15 @@ public class Main extends Application {
         } catch (MovimentoInvalidoException e) {
             e.mostrarMensagem(root, robo.getImg(), comida.getImg(), blocos, largura);
         } finally {
-            root.setDisable(false); // Reabilita o root
             this.verificarGameOver(stage, robo, comida);
         }
     }
 
-    private void moverUp(Pane root, Robo robo, Comida comida, Rectangle[][] blocos, int largura, Stage stage)
-            throws FileNotFoundException {
+    private void moverUp(Pane root, Robo robo, Comida comida, Rectangle[][] blocos, int largura, Stage stage,
+            Tabuleiro tabuleiro) throws FileNotFoundException {
         try {
-            root.setDisable(true); // Desabilita o root
+            tabuleiro.interagirBotoes();
+
             if (robo.getPosY() - 1 < 0)
                 throw new MovimentoInvalidoException();
 
@@ -232,15 +242,15 @@ public class Main extends Application {
         } catch (MovimentoInvalidoException e) {
             e.mostrarMensagem(root, robo.getImg(), comida.getImg(), blocos, largura);
         } finally {
-            root.setDisable(false); // Reabilita o root
             this.verificarGameOver(stage, robo, comida);
         }
     }
 
-    private void moverDown(Pane root, Robo robo, Comida comida, Rectangle[][] blocos, int largura, Stage stage)
-            throws FileNotFoundException {
+    private void moverDown(Pane root, Robo robo, Comida comida, Rectangle[][] blocos, int largura, Stage stage,
+            Tabuleiro tabuleiro) throws FileNotFoundException {
         try {
-            root.setDisable(true); // Desabilita o root
+            tabuleiro.interagirBotoes();
+
             if (robo.getPosY() + 1 >= 4)
                 throw new MovimentoInvalidoException();
 
@@ -248,15 +258,15 @@ public class Main extends Application {
         } catch (MovimentoInvalidoException e) {
             e.mostrarMensagem(root, robo.getImg(), comida.getImg(), blocos, largura);
         } finally {
-            root.setDisable(false); // Reabilita o root
             this.verificarGameOver(stage, robo, comida);
         }
     }
 
-    private void moverRight(Pane root, Robo robo, Comida comida, Rectangle[][] blocos, int largura, Stage stage)
-            throws FileNotFoundException {
+    private void moverRight(Pane root, Robo robo, Comida comida, Rectangle[][] blocos, int largura, Stage stage,
+            Tabuleiro tabuleiro) throws FileNotFoundException {
         try {
-            root.setDisable(true); // Desabilita o root
+            tabuleiro.interagirBotoes();
+
             if (robo.getPosX() + 1 >= 4)
                 throw new MovimentoInvalidoException();
 
@@ -264,11 +274,11 @@ public class Main extends Application {
         } catch (MovimentoInvalidoException e) {
             e.mostrarMensagem(root, robo.getImg(), comida.getImg(), blocos, largura);
         } finally {
-            root.setDisable(false); // Reabilita o root
             this.verificarGameOver(stage, robo, comida);
         }
     }
 
+    // Método para verificar se o jogo terminou
     private void verificarGameOver(Stage stage, Robo robo, Comida comida) {
         GameOverScreen game_over = new GameOverScreen();
 
@@ -278,6 +288,7 @@ public class Main extends Application {
         }
     }
 
+    // Método principal para iniciar a aplicação
     public static void main(String[] args) {
         launch(args);
     }
