@@ -17,9 +17,7 @@ public abstract class Obstaculo {
         this.img = this.definirImg(root, largura);
     }
 
-    public void bater(Robo robo) {
-
-    }
+    public abstract void bater(Robo robo);
 
     public String getId() {
         return this.id;

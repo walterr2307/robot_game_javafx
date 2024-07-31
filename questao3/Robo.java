@@ -77,6 +77,35 @@ public class Robo {
         }
     }
 
+    // Método sobrecarregado para mover o robô baseado em uma string que representa
+    // a direção
+    public void mover(String tipo_mov) {
+        int soma_x = 0, soma_y = 0, dx, dy;
+
+        // Define a direção do movimento
+        if (tipo_mov.equals("left"))
+            soma_x = -1;
+        else if (tipo_mov.equals("up"))
+            soma_y = -1;
+        else if (tipo_mov.equals("down"))
+            soma_y = 1;
+        else
+            soma_x = 1;
+
+        // Calcula as distâncias para o movimento
+        dx = this.x_blocos[soma_x + this.x_atual] - this.x_blocos[this.x_atual];
+        dy = this.y_blocos[soma_y + this.y_atual] - this.y_blocos[this.y_atual];
+
+        // Inicia a animação de translação
+        movimento.setByX(dx);
+        movimento.setByY(dy);
+        movimento.play();
+
+        // Atualiza a posição atual
+        this.x_atual += soma_x;
+        this.y_atual += soma_y;
+    }
+
     public int getPosX() {
         return this.x_atual;
     }

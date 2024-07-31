@@ -19,7 +19,7 @@ public class GameOverScreen extends StackPane {
         backgroundView.setFitHeight(300); // Ajuste de altura da imagem de fundo
 
         // Texto "Game Over"
-        Text gameOverText = new Text("Game Over");
+        Text gameOverText = new Text("YOU WIN!");
         gameOverText.setFont(Font.font("Arial", FontWeight.BOLD, 48));
         gameOverText.setFill(Color.RED);
 
